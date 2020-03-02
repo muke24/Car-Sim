@@ -8,17 +8,35 @@ public class CameraManager : MonoBehaviour
 	public float distance = 5f;
 	public float height = 2f;
 	public float dampening = 1f;
+	public float h2 = 0f;
+	public float d2 = 0f;
+	public float l = 0f;
 
-	// Start is called before the first frame update
-	void Start()
-	{
+	private int camMode = 0;
 
-	}
-
-	// Update is called once per frame
 	void Update()
 	{
-		transform.position = Vector3.Lerp(transform.position, focus.transform.position + focus.transform.TransformDirection(new Vector3(0f, height, distance)), Time.deltaTime);
-		transform.LookAt(focus.transform);
+		if (Input.GetKeyDown(KeyCode.C))
+		{
+			camMode = (camMode + 1) % 2;
+		}
+		switch (camMode)
+		{
+			case 1:
+
+				transform.position = focus.transform.position + focus.transform.TransformDirection(new Vector3(l, h2, d2));
+				transform.rotation = focus.transform.rotation;
+				
+				break;
+
+			default:
+				
+				transform.position = Vector3.Lerp(transform.position, focus.transform.position + focus.transform.TransformDirection(new Vector3(0f, height, distance)), Time.deltaTime);
+				transform.LookAt(focus.transform);
+				
+				break;
+		}
+
+		Debug.Log(camMode);
 	}
 }

@@ -15,7 +15,8 @@ public class CarController : MonoBehaviour
 	public List<WheelCollider> throttleWheels;
 	public List<GameObject> steeringWheels;
 	public List<GameObject> meshes;
-
+	public List<GameObject> tailLightColour;
+	
 	public float strengthCoefficient = 20000f;
 	public float maxTurn = 20f;
 	public float brakeStrength;
@@ -42,13 +43,27 @@ public class CarController : MonoBehaviour
 		{
 			lm.ToggleHeadlights();
 		}
+
+		foreach (GameObject tl in tailLightColour)
+		{
+			tl.GetComponent<Renderer>().material.SetColor("_EmissionColor", im.brake ? new Color(0.5f, 0.111f, 0.111f) : Color.black);
+		}
+		if (im.brake)
+		{
+			lm.ToggleBrakeLightsOn();
+		}
+		if (im.brake == false)
+		{
+			lm.ToggleBrakeLightsOff();
+		}
+
 	}
 
 	void FixedUpdate()
 	{
 		foreach (WheelCollider wheel in throttleWheels)
 		{
-			
+
 			if (im.brake)
 			{
 				wheel.motorTorque = 0f;
