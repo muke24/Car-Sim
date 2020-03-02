@@ -675,7 +675,7 @@ MonoBehaviour:
   height: 2
   dampening: 1
   h2: 0.725
-  d2: -0.11
+  d2: 0
   l: -0.35
 --- !u!1 &1039854935
 GameObject:

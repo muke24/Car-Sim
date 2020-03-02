@@ -26,6 +26,7 @@ public class CameraManager : MonoBehaviour
 
 				transform.position = focus.transform.position + focus.transform.TransformDirection(new Vector3(l, h2, d2));
 				transform.rotation = focus.transform.rotation;
+				Camera.main.fieldOfView = 90f;
 				
 				break;
 
@@ -33,7 +34,8 @@ public class CameraManager : MonoBehaviour
 				
 				transform.position = Vector3.Lerp(transform.position, focus.transform.position + focus.transform.TransformDirection(new Vector3(0f, height, distance)), Time.deltaTime);
 				transform.LookAt(focus.transform);
-				
+				Camera.main.fieldOfView = 60f;
+
 				break;
 		}
 
