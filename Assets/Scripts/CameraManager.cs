@@ -14,31 +14,28 @@ public class CameraManager : MonoBehaviour
 
 	private int camMode = 0;
 
-	void Update()
+	private void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.C))
 		{
 			camMode = (camMode + 1) % 2;
 		}
-		switch (camMode)
+
+		if (camMode == 1)
 		{
-			case 1:
-
-				transform.position = focus.transform.position + focus.transform.TransformDirection(new Vector3(l, h2, d2));
-				transform.rotation = focus.transform.rotation;
-				Camera.main.fieldOfView = 90f;
-				
-				break;
-
-			default:
-				
-				transform.position = Vector3.Lerp(transform.position, focus.transform.position + focus.transform.TransformDirection(new Vector3(0f, height, distance)), Time.deltaTime);
-				transform.LookAt(focus.transform);
-				Camera.main.fieldOfView = 60f;
-
-				break;
+			transform.position = focus.transform.position + focus.transform.TransformDirection(new Vector3(l, h2, d2));
+			transform.rotation = focus.transform.rotation;
+			Camera.main.fieldOfView = 80f;
 		}
+	}
 
-		Debug.Log(camMode);
+	void FixedUpdate()
+	{
+		if (camMode == 0)
+		{
+			transform.position = Vector3.Lerp(transform.position, focus.transform.position + focus.transform.TransformDirection(new Vector3(0f, height, -distance)), dampening * Time.deltaTime);
+			transform.LookAt(focus.transform);
+			Camera.main.fieldOfView = 60f;
+		}
 	}
 }
